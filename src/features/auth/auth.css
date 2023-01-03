@@ -1,0 +1,107 @@
+/* LOGIN */
+.Login {
+    margin-bottom: 2rem;
+    color: var(--LIGHTTEXT);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .Login__form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Login__input {
+    width: 100%;
+    height: 3rem;
+    margin: 0.25rem 1rem 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  .Login__sign-in-btn {
+    width: 30%;
+  }
+  
+  .Login__sign-up-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Login__sign-up-link a {
+    color: var(--LIGHTER-LINK);
+  }
+  
+  /* REGISTER */
+  .Register {
+    width: 100%;
+    margin: 1rem 0 2rem;
+    color: var(--LIGHTTEXT);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .Register__form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Register__input {
+    width: 100%;
+    height: 3rem;
+    margin: 0.25rem 1rem 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .Register__sign-up-btn {
+    width: 30%;
+  }
+  
+  .Register__sign-in-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Register__sign-in-link a {
+    color: var(--LIGHTER-LINK);
+  }
+  
+  .Register__instructions {
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+  }
+  
+  .Register__instructions > svg {
+    margin-right: 0.25rem;
+  }
+
+  @media (max-width: 750px) {
+
+    .Login__form,
+    .Register__form {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .Login__sign-in-btn,
+    .Register__sign-up-btn {
+        width: 95%;
+    }
+  }

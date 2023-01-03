@@ -1,10 +1,23 @@
-import React, { useEffect } from 'react'
-import api from '../api/cocktails'
+import './cocktail.css'
+import { useEffect, useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import CocktailContext from '../../context/CocktailContext'
+import useAuth from '../../hooks/useAuth'
+import useCloudinary from '../../hooks/useCloudinary'
+import { COCKTAILS_URL } from '../../api/apiURL'
 
-const NewCocktail = ({ 
-  cocktails, setCocktails, cocktailName, setCocktailName, liqourBase, setLiqourBase, 
-  cocktailDesc, setCocktailDesc, cocktailImage, setCocktailImage, navigate
-}) => {
+const NewCocktail = () => {
+  const {
+    cocktails, setCocktails, cocktailName, setCocktailName, liqourBase, setLiqourBase, 
+  cocktailDesc, setCocktailDesc, cocktailImage, setCocktailImage
+  } = useContext(CocktailContext)
+
+  const [previewSource, setPreviewSource] = useState('')
+  const { auth } = useAuth()
+  const axiosPrivate = useAxiosPrivate()
+  const uploadToCloudinary = useCloudinary()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (cocktails) {
@@ -13,30 +26,45 @@ const NewCocktail = ({
       setCocktailDesc('')
     }
   }, [cocktails, setCocktailName, setLiqourBase, setCocktailDesc])
-  
-  
+
+  const previewFile = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+        setPreviewSource(reader.result);
+    }
+  }
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0]
+    previewFile(file)
+    setCocktailImage(file)
+  }
+
   const handleNewCocktail = async (e) => {
     e.preventDefault()
-    const data = new FormData()
-    data.append("name", cocktailName)
-    data.append("alcoholbase", liqourBase)
-    data.append("description", cocktailDesc)
-    data.append("cocktailImage", cocktailImage)
     try {
-      const response = await api.post('/cocktails', data, {
-        headers: { "Content-Type": "multipart/form-data" }
-      })
-      const allCocktails = [...cocktails, response.data]
+      const cloudinaryRes = await uploadToCloudinary(cocktailImage)
+
+      const data = { name: cocktailName, alcoholbase: liqourBase, description: cocktailDesc, userId: auth.userId,
+         image: cloudinaryRes }
+
+      const response = await axiosPrivate.post(COCKTAILS_URL, data)
+      const newCocktail = response.data
+      const allCocktails = [...cocktails, newCocktail]
+
       setCocktails(allCocktails)
       setCocktailName('')
       setLiqourBase('')
       setCocktailDesc('')
       setCocktailImage()
+
       navigate('/')
     } catch (err) {
       console.log(err)
     }
   }
+  
   return (
     <main className="NewEditCocktail">
       <h2>Create New Cocktail</h2>
@@ -77,11 +105,21 @@ const NewCocktail = ({
           <input 
             id="image" 
             type="file" 
-            onChange={(e) => setCocktailImage(e.target.files[0])}
+            onChange={handleFileInputChange}
             required />
         </div>
         <button className="text-btn" type="submit">Create</button>
       </form>
+
+      {previewSource && (
+          <img
+              className="NewEditCocktail__preview-img"
+              src={previewSource}
+              alt="chosen"
+              height="300"
+              width="300"
+          />
+        )}
     </main>
   )
 }

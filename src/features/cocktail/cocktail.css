@@ -1,0 +1,200 @@
+/* COCKTAIL PAGE */
+.CocktailPage {
+    margin: 1rem 1rem 2rem;
+    padding: 1rem;
+    border: transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--BLACK);
+    background-color: var(--PRIMARYCOLOR);
+}
+  
+.CocktailPage img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    margin: 1rem 0 1rem;
+    border: 5px double var(--BLACK);
+}
+
+.CocktailPage__p-tags {
+    padding: 0.5rem;
+}
+
+.CocktailPage__description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: pre-wrap;
+}
+
+.CocktailPage__user > svg {
+    margin: 0 0.25rem;
+}
+
+.CocktailPage__user a, .CocktailPage__user a:visited {
+    color: var(--LIGHTER-LINK);
+}
+
+.CocktailPage__btn-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.CocktailPage__delete-btn {
+    background-color: #F00;
+    color: var(--LIGHTTEXT);
+}
+
+.CocktailPage__edit-btn {
+    background-color: var(--BLACK);
+    color: var(--LIGHTTEXT);
+}
+
+.CocktailPage__user-popup {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-popup__username {
+    white-space: pre-wrap;
+}
+
+/* NEW AND EDIT COCKTAIL */
+.NewEditCocktail {
+    color: var(--LIGHTTEXT);
+    width: 100%;
+    margin: 1rem 0 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.NewEditCocktail__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.NewEditCocktail__input-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.NewEditCocktail__input-field {
+    width: 100%;
+    height: 3rem;
+}
+
+.NewEditCocktail__textarea {
+    width: 100%;
+    min-height: 200px;
+}
+
+.NewEditCocktail__preview-img {
+    border: 5px solid var(--BLACK);
+}
+
+/* COMMENT SECTION */
+.CommentSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.CommentSection__form {
+    width: 100%;
+    margin: 1rem 0;
+    background-color: white;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+    display: flex;
+    justify-content: center;
+}
+
+.CommentSection__comment-input {
+    padding: 0.25rem;
+    width: 100%;
+    border: transparent;
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+}
+
+.CommentSection__comment-btn {
+    font-size: 1.5rem;
+}
+
+/* COMMENT */
+.Comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Comment__container {
+    width: 500px;
+    padding: 0.5rem;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+    color: var(--BLACK);
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Comment__user-icon-btn {
+    background-color: var(--BLACK);
+    color: var(--LIGHTTEXT);
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
+.Comment__text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.Comment__username {
+    font-weight: bolder;
+}
+
+.Comment__body {
+    white-space: pre-wrap;
+}
+
+.Comment__edit-btn {
+    font-size: 1.5rem;
+}
+
+.Comment__delete-btn {
+    font-size: 1.5rem;
+    color: red;
+}
+
+@media (max-width: 750px) {
+    .NewEditCocktail__form {
+        padding: 1rem;
+    }
+    
+    .NewEditCocktail__input-container {
+        width: 100%;
+    }
+}

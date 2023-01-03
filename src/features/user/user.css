@@ -1,0 +1,186 @@
+/* USERS */
+.Users {
+    margin-bottom: 2rem;
+    color: var(--LIGHTTEXT);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Users__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Users__search {
+    height: 40px;
+    width: 40%;
+    background-color: var(--BGCOLOR);
+    font-weight: 200;
+    border: none;
+    border-bottom: 2px solid var(--LIGHTTEXT);
+    color: var(--LIGHTTEXT);
+  }
+  
+  .Users__search:focus {
+    outline: none;
+  }
+  
+  .Users__search::placeholder {
+    color: var(--LIGHTTEXT);
+  }
+  
+  .Users__list {
+    margin: 1rem 0;
+  }
+  
+  .Users__list-item {
+    list-style: none;
+    font-size: 1.5rem;
+  }
+  
+  .Users__list-item a {
+    color: var(--LIGHTER-LINK);
+    margin: 0.25rem;
+  }
+  
+  .Users__page-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--LIGHTTEXT);
+  }
+  
+  .Users__page-btn {
+    padding: 0 0.5rem;
+    background-color: var(--PRIMARYCOLOR)
+  }
+  
+  /* USER PAGE */
+  .UserPage {
+    margin-bottom: 2rem;
+    color: var(--LIGHTTEXT);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .UserPage__feed-title {
+    font-size: 1.5rem;
+  }
+  
+  .UserPage__user-info {
+    background-color: white;
+    color: var(--BLACK);
+    padding: 1rem;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  /* USER PROFILE */
+  .UserProfile {
+    margin-bottom: 2rem;
+    color: var(--LIGHTTEXT);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .UserProfile__customization-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  
+  .UserProfile__user-info,
+  .UserProfile__form {
+    width: 33%;
+    background-color: white;
+    color: var(--BLACK);
+    padding: 1rem;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .UserProfile__user-info {
+    align-self: flex-start;
+    min-height: 142.5px;
+  }
+  
+  .UserPage__info-tags,
+  .UserProfile__info-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .UserPage__info-tags p,
+  .UserProfile__info-tags p {
+    font-weight: normal;
+    font-size: 1rem;
+    white-space: pre-wrap;
+  }
+  
+  .UserProfile__edit-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: transparent;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+  }
+  
+  .UserProfile__form-label {
+    margin-left: 0.5rem;
+  }
+  
+  .UserProfile__form-input,
+  .UserProfile__form-aboutMe {
+    width: 100%;
+    padding: 0.25rem;
+    border: transparent;
+    box-shadow: 1px 2px 3px 2px var(--BLACK);
+  }
+  
+  .UserProfile__form-aboutMe {
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+  }
+  
+  .UserProfile__form-aboutMe:is(:hover, :focus),
+  .UserProfile__form-input:is(:hover, :focus) {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 750px) {
+    .UserProfile__customization-container {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .UserProfile__user-info,
+    .UserProfile__form {
+        width: 100%;
+    } 
+  }

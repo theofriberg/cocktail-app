@@ -1,8 +1,6 @@
-import React from 'react'
-
 const Missing = () => {
   return (
-    <h1>Missing</h1>
+    <h2>The requested resource does not exist</h2>
   )
 }
 

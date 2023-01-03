@@ -1,37 +1,67 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
-import api from '../api/cocktails'
+import './cocktail.css'
+import { useEffect, useContext, useState } from 'react'
+import { useParams, useNavigate } from 'react-router'
+import CocktailContext from '../../context/CocktailContext'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import { COCKTAILS_URL } from '../../api/apiURL'
+import useCloudinary from '../../hooks/useCloudinary'
 
-const EditCocktail = ({
-    cocktails, setCocktails, cocktailName, setCocktailName, liqourBase, setLiqourBase, 
-  cocktailDesc, setCocktailDesc, cocktailImage, setCocktailImage, navigate
-}) => {
+const EditCocktail = () => {
+    const { 
+      cocktails, setCocktails, cocktailName, setCocktailName, liqourBase, setLiqourBase,
+      cocktailDesc, setCocktailDesc, cocktailImage, setCocktailImage
+    } = useContext(CocktailContext)
+
+    const [previewSource, setPreviewSource] = useState()
     const { id } = useParams()
-    const cocktail = cocktails.find(cocktail => (cocktail._id).toString() === id)
+    const navigate = useNavigate()
+    const axiosPrivate = useAxiosPrivate()
+    const uploadToCloudinary = useCloudinary()
 
     useEffect(() => {
-        if (cocktail) {
-            setCocktailName(cocktail.name)
-            setLiqourBase(cocktail.alcoholbase)
-            setCocktailDesc(cocktail.description)
+
+      const getCocktail = async () => {
+        try {
+          const response = await axiosPrivate.get(`${COCKTAILS_URL}/${id}`)
+          const cocktail = response.data
+          setCocktailName(cocktail.name)
+          setLiqourBase(cocktail.alcoholbase)
+          setCocktailDesc(cocktail.description)
+        } catch (err) {
+          console.log(err)
         }
-    }, [cocktail, setCocktailName, setLiqourBase, setCocktailDesc])
+      }
+  
+      getCocktail()
+  
+    }, [])
+
+    const previewFile = (file) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+          setPreviewSource(reader.result);
+      }
+    }
+  
+    const handleFileInputChange = (e) => {
+      const file = e.target.files[0]
+      previewFile(file)
+      setCocktailImage(file)
+    }
 
     const handleEdit = async (e) => {
         e.preventDefault()
-        const data = new FormData()
-        data.append("id", id)
-        data.append("name", cocktailName)
-        data.append("alcoholbase", liqourBase)
-        data.append("description", cocktailDesc)
-        if (cocktailImage != null) {
-            data.append("cocktailImage", cocktailImage)
-        }
+        
         try {
-            const response = await api.patch('/cocktails', data, {
-            headers: { "Content-Type": "multipart/form-data" }
-            })
+          const cloudinaryRes = cocktailImage ? await uploadToCloudinary(cocktailImage) : null
+          
+          const data = { name: cocktailName, alcoholbase: liqourBase, description: cocktailDesc,
+            image: cloudinaryRes }
+
+            const response = await axiosPrivate.patch(COCKTAILS_URL, data)
             setCocktails(cocktails.map(cocktail => cocktail._id === id ? {...response.data} : cocktail))
+
             setCocktailName('')
             setLiqourBase('')
             setCocktailDesc('')
@@ -44,7 +74,7 @@ const EditCocktail = ({
 
   return (
     <main className="NewEditCocktail">
-      <h2>Edit {cocktail.name}</h2>
+      <h2>Edit {cocktailName}</h2>
       <form className="NewEditCocktail__form" onSubmit={handleEdit}>
         <div className="NewEditCocktail__input-container">
           <label className="nowrap" htmlFor="cocktailName">Cocktail name:</label>
@@ -84,11 +114,21 @@ const EditCocktail = ({
           <input 
             id="image" 
             type="file" 
-            onChange={(e) => setCocktailImage(e.target.files[0])}
+            onChange={handleFileInputChange}
             />
         </div>
         <button className="text-btn" type="submit">Update</button>
       </form>
+
+      {previewSource && (
+          <img
+              className="NewEditCocktail__preview-img"
+              src={previewSource}
+              alt="chosen"
+              height="300"
+              width="300"
+          />
+        )}
     </main>
   )
 }
